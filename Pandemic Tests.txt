@@ -1,0 +1,88 @@
+This is a document that contains the test requirements to be used to drive development of project.
+Tests will be broken up into logical groups, however are subject to change. Tests maybe added on as the project continues.
+Negative tests will not be taken into account for now.
+
+Each new feature should begin with writing a test. 
+
+
+# Game State:
+===============
+
+## Deck:
+* shuffle deck
+	1. deck should be randomized per game
+	2. subsequent calls to shuffle method/function should produce different shuffled decks
+* deck is made up of multiple cards
+
+
+## Card:
+* Card_Draw_Effect__city_player_card
+	1. When this card is drawn, card is added to current player's hand
+* Card_Draw_Effect__event_player_card
+	1. When this card is drawn, card is added to current player's hand
+* Card_Draw_Effect__epidemic_player_card
+	1. When this card is drawn, trigger epidemic phase
+
+
+## Epidemic:
+* Epidemic_Phase:
+	1. bottom card from infection deck is drawn
+	2. drawn card's city now has 3 cubes of city's color
+
+* Epidemic_Card_Draw_Effect:
+	1. drawn city infection card  
+
+# Players:
+===============
+* maximum 4 actions per player turn
+* can move only to adjacent cities unless using proper mechanics to do otherwise
+* Need_To_Discard:
+	1. check player.hand is > 7
+	2. player must discard cards until player's hand contains 7 cards
+* to create cure:
+	1. check if player is at a RC (research center)
+	2. check if players.hand contins at least 5 cards of the same color for researching cure of that color
+* curing city
+	1. check if there are any cubes at current player's city
+	2. remove only one cube of the specified color
+* curing city with cure researched
+	1. check if there are any cubes with the same colored cure
+	2. remove all of the cubes of that color
+* driving
+	1. player can only drive to adjacent cities
+* flying with player card
+	1. player has card with specified city in hand
+	2. player is not at the city specified by the card
+	3. player consumes card and is removed from hand
+	4. player's location is now at specified city
+* Trading
+	1. players are at same location
+	2. between the two players' hands, there is a city player card that matches their location
+	3. specified card is added to receiver's hand
+	4. specified card is removed from giver's hand
+* Trading_with_Need_To_Discard
+	1. execute Trading
+	2. execute Need_To_Discard
+
+
+
+# Research Center
+===============
+* Build_RC
+	1. check if current city has RC
+ 	2. current player must have city player card that matches current city location
+ 	3. place RC token on current city
+ 	4. total number of RC tokens in pool is subtracted by 1
+ 	5. check that city has RC
+* build RC with no remaining tokens in pool   # this test case builds upon Build_RC
+	1. check that the token pool is equal to 0
+	2. pass previous test case (Build_RC)
+	3. remove a RC from another location with RC
+	4. check that selected location does not have RC
+
+
+
+
+
+Cards
+===============

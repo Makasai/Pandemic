@@ -1,0 +1,23 @@
+Let's start with 12 cities
+
+3 of each color
+Blue
+	- Atlanta
+	- Washington
+	- Montreal
+Yellow
+	- Miami
+	- LA
+	- Mexico City
+Red
+	- Tokyo
+	- Osaka
+	- Taipei
+Black
+	- Cairo
+	- Delhi
+	- Kolkata
+
+	
+
+	

@@ -1,0 +1,131 @@
+Pandemic
+
+Abbreviations:
+	RC - Research Center
+	IC - Infection Card
+	PC - Player Card
+
+
+City:
+	City name
+	Neighbors
+	Color
+	Cube Types:
+		1) red
+		2) blue
+		3) yellow
+		4) black
+	research center
+	Players  # that are at the city
+
+
+Player
+	Name  # medic, scientist, etc..
+	Location  # what city they are in
+	Cards in hand
+	Actions:
+		move()
+			drive
+			fly_to_city
+		trade()
+		cure()
+		build()
+		research()
+		event_card()
+
+
+Board State
+	Outbreak counter
+	Epidemic counter
+	Player cards  # city cards for player
+	Infection cards  # city to infect
+	Cures
+
+
+Cards  # I'll need to have 2 decks...2 arrays?
+	Name
+		city
+		eventx`
+		epidemic
+	color
+		blue
+		red
+		yellow
+		black
+		white  - Event cards
+
+	Event Cards:
+		for now, only have 2
+			1) fly anywhere
+			2) build research center anywhere
+
+
+
+Mechanics of game:
+==========================
+
+1) Epidemic:
+	- Draws bottom card of infection deck
+	- if city on card has cubes of city's color, then trigger outbreak mechanic
+	- city should have 3 cubes of city's color
+
+2) Infecting cities:
+	- check if city has 3 cubes of city's color
+		- if true, trigger outbreak mechanic
+		- if false, add cube of city's color
+
+3) Outbreak:
+	- Occurs when city has 3 cubes of the same color and another cube of that color is added to the city.
+		Rather than have >3 cubes, a cube of that color is placed onto each adjacent city
+		This can lead to multiple outbreaks
+	- City can only outbreak once per player turn
+
+4) Curing:
+	- Without cure, player only removes 1 cubes per cure action
+	- With cure, player removes all cubes of that color from current city
+	- [AFTER DEMO] medic is able to remove all cubes without the cure
+		Also able to walk and remove cubes with 1 action if cure for that color is found
+
+
+
+
+
+=====================================
+On card draw, rather than have the card's name be checked, what if each card has a "Card_Draw_Effect" method that triggers whenever the card is drawn?
+This would eliminate the need to run a string match or check to see what the card is.
+
+E.g. For player deck, 3 types of cards can be drawn: 
+			1) city
+			2) event
+			3) epidemic
+
+		for 1) and 2) the effect would be to simply continue the game phase
+		for 3) it wuold trigger the epidemic game phase
+
+	 For infection deck, only 1 type of card can be drawn:
+	 		1) city
+
+	 	for 1) colored cube matching drawn card's color is added to city
+	 			- special case is if the card is drawn as an epidemic card
+	 			- maybe have another method specific to epidemic? "Epidemic_Card_Draw_Effect" method?
+
+I like this approach more because you don't need to run through a bunch of if statements to progress the game. 
+
+05/30/2018 - EDIT
+Actually, you only need 1 check, to see if it's an epidemic card -.-
+
+For deck.Draw_Card(): if epidemic card, then trigger epidemic, else, add card to player hand
+==========================================
+
+3 Phases:
+
+1 Player Phase:
+	- player completes up to 4 actions
+	- player draws 2 cards from the player deck
+		- if epidemic: trigger epidemic
+			-pull last card from infection deck
+			-check card.city
+			-check location
+
+
+
